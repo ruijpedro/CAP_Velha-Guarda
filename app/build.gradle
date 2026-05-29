@@ -1,0 +1,18 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.rjp.chulaxuta'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.rjp.chulaxuta'
+        minSdk 23
+        targetSdk 35
+        versionCode 2
+        versionName '1.2'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+}
