@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#101a31" />
-<title>Chuta Xuta Capitain</title>
+<title>CAP Velha Guarda</title>
 <style>
-:root{--bg:#111b32;--card:#18243e;--line:#2a3757;--txt:#f7f8fb;--mut:#aab4cc;--gold:#ffd21f;--green:#20c65a;--red:#ff3b48;--blue:#3c7cff;--orange:#ff9f1c;}
+:root{--bg:#111b32;--card:#18243e;--line:#2a3757;--txt:#f7f8fb;--mut:#aab4cc;--gold:#d50000;--green:#20c65a;--red:#ff3b48;--blue:#3c7cff;--orange:#ff9f1c;}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top,#203657 0,#10182d 52%,#080d19 100%);color:var(--txt);min-height:100vh}
 .app{max-width:560px;margin:0 auto;min-height:100vh;padding:18px 14px 30px}
@@ -57,8 +57,8 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(
 <body>
 <div class="app">
   <div class="hero">
-    <div class="logo"><img src="logo.png" alt="Chuta Xuta" /></div>
-    <div class="title">Chuta Xuta</div>
+    <div class="logo"><img src="logo.png" alt="CAP Velha Guarda" /></div>
+    <div class="title">CAP Velha Guarda</div>
     <div class="sub">VERSÃO CAPITAIN · GESTÃO</div>
     <div class="date" id="gameDate">⚽ Quinta-feira</div>
   </div>
@@ -331,8 +331,8 @@ function message(){const c=players.filter(p=>p.status==='confirmado');let msg='�
 function financeMessage(){const paid=players.filter(p=>p.paid);const unpaid=players.filter(p=>!p.paid);let msg='💰 CHUTA XUTA - Caixa do Clube\n';msg+='Mensalidade: '+euro(monthlyValue)+' | Ao jogo: '+euro(gameValue)+'\n';msg+='Valor em caixa: '+euro(cashTotal())+'\n';msg+='Pagos: '+paid.length+' | Por pagar: '+unpaid.length+'\n\n';msg+='✅ Pagos:\n'+(paid.map(p=>'- '+p.name).join('\n')||'Nenhum')+'\n\n';msg+='❌ Por pagar:\n'+(unpaid.map(p=>'- '+p.name+' ('+(p.type==='mes'?'Mensalidade':'Ao jogo')+')').join('\n')||'Nenhum');return msg;}
 function shareFinance(){abrirWhatsApp(financeMessage());}
 function shareWhatsApp(){abrirWhatsApp(message());}
-function scheduleReminder(){const d=nextThursday();d.setHours(18,0,0,0);if(window.ChutaAndroid){window.ChutaAndroid.scheduleNotification(d.getTime(),'Chuta Xuta','Confirma a tua presença para o jogo de hoje.');toast('Notificação agendada');}else{toast('Notificação só disponível na app Android');}}
-function scheduleDinnerReminder(){saveDinner();if(!dinner.date||!dinner.time)return toast('Define data e hora do jantar');const d=new Date(dinner.date+'T'+dinner.time);d.setHours(d.getHours()-2);if(window.ChutaAndroid){window.ChutaAndroid.scheduleNotification(d.getTime(),'Jantar Chuta Xuta','Jantar hoje: '+(dinner.name||'restaurante a definir'));toast('Notificação do jantar agendada');}else{toast('Notificação só disponível na app Android');}}
+function scheduleReminder(){const d=nextThursday();d.setHours(18,0,0,0);if(window.ChutaAndroid){window.ChutaAndroid.scheduleNotification(d.getTime(),'CAP Velha Guarda','Confirma a tua presença para o jogo de hoje.');toast('Notificação agendada');}else{toast('Notificação só disponível na app Android');}}
+function scheduleDinnerReminder(){saveDinner();if(!dinner.date||!dinner.time)return toast('Define data e hora do jantar');const d=new Date(dinner.date+'T'+dinner.time);d.setHours(d.getHours()-2);if(window.ChutaAndroid){window.ChutaAndroid.scheduleNotification(d.getTime(),'Jantar CAP Velha Guarda','Jantar hoje: '+(dinner.name||'restaurante a definir'));toast('Notificação do jantar agendada');}else{toast('Notificação só disponível na app Android');}}
 
 const SHEETS_API_URL = "https://script.google.com/macros/s/AKfycby3L8XI894oQSWqac_cYcLxs5DeW8UbXYH86FI4BeZwFA8CJ2eMnRDEsR-P4lerhE1W/exec";
 
@@ -500,3 +500,7 @@ setDate();render();
 </script>
 </body>
 </html>
+
+<!-- CAP Velha Guarda v1 -->
+<!-- Autor: Rui Jorge Pedro -->
+<!-- Equipas removidas / Almoço-Jantar e Cotas previstos -->
