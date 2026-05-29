@@ -1,4 +1,4 @@
-name: Build Private APK
+name: Build Android APK
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,14 +19,23 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Unzip Android project
+        run: |
+          rm -rf build_src
+          mkdir build_src
+          unzip -q CAP_Velha_Guarda_Android_Project.zip -d build_src
+          ls -la build_src
+          ls -la build_src/ChulaXuta_Android
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build debug APK
+        working-directory: build_src/ChulaXuta_Android
         run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ChulaXuta-private-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: CAP-Velha-Guarda-debug-apk
+          path: build_src/ChulaXuta_Android/app/build/outputs/apk/debug/app-debug.apk
