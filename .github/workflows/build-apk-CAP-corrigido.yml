@@ -1,0 +1,68 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Unzip Android project
+        run: |
+          rm -rf build_src
+          mkdir build_src
+
+          echo "Conteúdo do repositório:"
+          ls -la
+
+          ZIP_FILE=$(ls *.zip | head -n 1)
+          echo "ZIP encontrado: $ZIP_FILE"
+
+          unzip -q "$ZIP_FILE" -d build_src
+          echo "Conteúdo após primeiro unzip:"
+          ls -la build_src
+
+          if [ ! -f build_src/ChulaXuta_Android/settings.gradle ]; then
+            INNER_ZIP=$(find build_src -name "*.zip" | head -n 1)
+            if [ -n "$INNER_ZIP" ]; then
+              echo "ZIP interno encontrado: $INNER_ZIP"
+              rm -rf build_src2
+              mkdir build_src2
+              unzip -q "$INNER_ZIP" -d build_src2
+              rm -rf build_src
+              mv build_src2 build_src
+            fi
+          fi
+
+          echo "Conteúdo final:"
+          find build_src -maxdepth 3 -type f | sort
+
+          if [ ! -f build_src/ChulaXuta_Android/settings.gradle ]; then
+            echo "ERRO: settings.gradle não encontrado em build_src/ChulaXuta_Android"
+            exit 1
+          fi
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build debug APK
+        working-directory: build_src/ChulaXuta_Android
+        run: gradle assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: CAP-Velha-Guarda-debug-apk
+          path: build_src/ChulaXuta_Android/app/build/outputs/apk/debug/app-debug.apk
